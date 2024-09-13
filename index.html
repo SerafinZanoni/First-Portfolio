@@ -1,11 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Proyecto M1</h1>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mi Precentacion Personal</title>
+    <link rel="stylesheet" href="styles/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Bienvenidos a mi Página Personal</h1>
+    </header>
+
+    <main>
+      <section id="sobre-mi">
+        <h2>Sobre Mí</h2>
+        <p>
+          Hola, soy Serafin Zanoni, un aprendiz apasionado por la tecnología y el desarrollo
+          web. Me encanta aprender nuevas herramientas y mejorar continuamente
+          mis habilidades.
+        </p>
+      </section>
+
+      
+      <section id="tecnologias-favoritas">
+        <h2>Mis Tecnologías Favoritas</h2>
+        <div class="tecnologias">
+          <div class="tarjeta">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/174/174854.png"
+              alt="HTML5 logo"
+            />
+            <p>HTML5</p>
+          </div>
+          <div class="tarjeta">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/732/732190.png"
+              alt="CSS3 logo"
+            />
+            <p>CSS3</p>
+          </div>
+          <div class="tarjeta">
+            <img
+              src="https://cdn-icons-png.flaticon.com/512/5968/5968292.png"
+              alt="JavaScript logo"
+            />
+            <p>JavaScript</p>
+          </div>
+          <!-- Añadir más tarjetas si es necesario -->
+        </div>
+      </section>
+
+      <!-- Sección Mis Actividades Favoritas -->
+      <section id="actividades-favoritas">
+        <h2>Mis Actividades Favoritas</h2>
+
+        <form id="form-actividades">
+          <label for="titulo">Título:</label>
+          <input type="text" id="titulo" required />
+          <label for="descripcion">Descripción:</label>
+          <input type="text" id="descripcion" required />
+          <label for="urlImagen">URL de Imagen:</label>
+          <input type="url" id="urlImagen" required />
+          <button type="submit">Agregar Actividad</button>
+        </form>
+
+        <div id="contenedor-actividades">
+          <!-- Aquí se mostrarán las tarjetas de actividades -->
+        </div>
+      </section>
+    </main>
+    <footer>
+        <p>&copy; 2023. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="/PM1-SerafinZanoni/scripts/index.js"></script>
+  </body>
 </html>
