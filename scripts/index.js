@@ -1,18 +1,3 @@
-
-// Actividades
-
-// Implementar la clase Repository, la cual se encargará de crear, almacenar y manipular las actividades. La misma tendrá:
-
-// Propiedad activities => Un arreglo para almacenar las actividades.
-
-// Método getAllActivities => Debe retornar un arreglo con todas las actividades.
-
-// Método createActivity => Debe instanciar una actividad con los datos correspondientes y almacenarla en su arreglo.
-
-// EXTRA CREDIT. Método deleteActivity => Debe recibir un id y filtrar el arreglo para eliminar la actividad correspondiente.
-
-
-
 class Activity {
   constructor(id, title, description, urlImage) {
     this.id = id;
@@ -38,7 +23,7 @@ class Repository {
     const activity = new Activity(id, title, description, urlImage);
     this.addActivity(activity);
   }
-  deleteActivity(id) {
+  deleteActivityById(id) {
     this.activities = this.activities.filter((activity) => activity.id !== id);
   }
 
@@ -51,20 +36,74 @@ class Repository {
     activity.urlImage = urlImage;
   }
 }
-
-// ejemplos de uso 
-
 const repository = new Repository();
-const activity1 = new Activity(1, 'Tenis', 'Jugar tenis', 'imgs/tenis.jpg');
-const activity2 = new Activity(2, 'Tenis', 'Jugar tenis', 'imgs/tenis.jpg');
-repository.addActivity(activity1);
-repository.addActivity(activity2);
 
+// const activity1 = new Activity(1, 'Tenis', 'Jugar tenis', 'imgs/tenis.jpg');
+// const activity2 = new Activity(2, 'Futbol', 'Jugar futbol', 'imgs/futbol.jpg');
+// repository.addActivity(activity1);
+// repository.addActivity(activity2);
 
-console.log(repository.getAllActivities());
+const title = document.getElementById("title");
+const description = document.getElementById("description");
+const urlImage = document.getElementById("urlImage");
+const button = document.getElementById("button");
+const activityCardContainer = document.getElementById("activityCardContainer");
 
-repository.editActivity(2,'Futbol' , 'Jugar con los pies', 'imgs/futbol.jpg');
+const createActivityHTML = (activity) => {
+  const activityDiv = document.createElement("div");
+  activityDiv.classList.add("tarjeta");
+  activityDiv.innerHTML = `
+    <img src="${activity.urlImage}" alt="Imagen de la actividad" />
+    <p>${activity.title}</p>
+    <H1>${activity.description}</H1>
+    <button class="delete-btn">Eliminar</button>
+  `;
 
+  const deleteButton = activityDiv.querySelector(".delete-btn");
+  deleteButton.addEventListener("click", () => {
+    repository.deleteActivityById(activity.id);
+    renderActivities();
+  });
 
-// preguntar porque muestra futbol y no solo los dos tenis si pido console log antes de edirtarlo
+  return activityDiv;
+};
 
+const renderActivities = () => {
+  
+  activityCardContainer.innerHTML = "";
+
+  const activities = repository.getAllActivities();
+
+  const activityElements = activities.map(createActivityHTML);
+
+  activityElements.forEach((activityElement) => {
+    activityCardContainer.appendChild(activityElement);
+  });
+};
+
+const handleCreateActivity = (event) => {
+  event.preventDefault();
+
+  const titleValue = title.value;
+  const descriptionValue = description.value;
+  const urlImageValue = urlImage.value;
+
+  if (!titleValue || !descriptionValue || !urlImageValue) {
+    alert("Por favor, completa todos los campos.");
+    return;
+  }
+
+  repository.createActivity(titleValue, descriptionValue, urlImageValue);
+
+  title.value = "";
+  description.value = "";
+  urlImage.value = "";
+
+  renderActivities();
+};
+
+button.addEventListener("click", handleCreateActivity);
+
+document.addEventListener("DOMContentLoaded", renderActivities);
+
+console.log(Activity.getAllActivities);
