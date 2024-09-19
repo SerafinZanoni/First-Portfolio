@@ -38,11 +38,6 @@ class Repository {
 }
 const repository = new Repository();
 
-// const activity1 = new Activity(1, 'Tenis', 'Jugar tenis', 'imgs/tenis.jpg');
-// const activity2 = new Activity(2, 'Futbol', 'Jugar futbol', 'imgs/futbol.jpg');
-// repository.addActivity(activity1);
-// repository.addActivity(activity2);
-
 const title = document.getElementById("title");
 const description = document.getElementById("description");
 const urlImage = document.getElementById("urlImage");
@@ -69,7 +64,6 @@ const createActivityHTML = (activity) => {
 };
 
 const renderActivities = () => {
-  
   activityCardContainer.innerHTML = "";
 
   const activities = repository.getAllActivities();
@@ -105,5 +99,3 @@ const handleCreateActivity = (event) => {
 button.addEventListener("click", handleCreateActivity);
 
 document.addEventListener("DOMContentLoaded", renderActivities);
-
-console.log(Activity.getAllActivities);

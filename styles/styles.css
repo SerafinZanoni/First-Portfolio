@@ -120,7 +120,6 @@ form button:hover {
 
 .delete-btn {
   background-color: #4caf50;
-  font-size: 0.5em;
   color: white;
   border: none;
   border-radius: 5px;
@@ -128,5 +127,5 @@ form button:hover {
   font-size: 1em;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
-
