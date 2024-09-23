@@ -143,3 +143,83 @@ describe("Pruebas con valores nulos e indefinidos", function() {
   });
 
 });
+
+
+
+// --------------------------------  PRUEBAS SOBRE EL PROYECTO  --------------------------------------------------
+
+
+// Pruebas para la clase Activity
+describe("Pruebas para la clase Activity", function() {
+
+  it("debería crear una actividad con los valores correctos", function() {
+      const activity = new Activity(1, "Actividad 1", "Descripción 1", "imagen1.jpg");
+
+      expect(activity.id).toBe(1);
+      expect(activity.title).toBe("Actividad 1");
+      expect(activity.description).toBe("Descripción 1");
+      expect(activity.urlImage).toBe("imagen1.jpg");
+  });
+
+});
+
+// Pruebas para la clase Repository
+describe("Pruebas para la clase Repository", function() {
+  let repository;
+
+  beforeEach(function() {
+      repository = new Repository();
+  });
+
+  it("debería agregar una actividad correctamente", function() {
+      const activity = new Activity(1, "Actividad 1", "Descripción 1", "imagen1.jpg");
+      repository.addActivity(activity);
+
+      const activities = repository.getAllActivities();
+      expect(activities.length).toBe(1);
+      expect(activities[0]).toEqual(activity);
+  });
+
+  it("debería crear una actividad correctamente con createActivity", function() {
+      repository.createActivity("Actividad 2", "Descripción 2", "imagen2.jpg");
+
+      const activities = repository.getAllActivities();
+      expect(activities.length).toBe(1);
+      expect(activities[0].title).toBe("Actividad 2");
+      expect(activities[0].description).toBe("Descripción 2");
+      expect(activities[0].urlImage).toBe("imagen2.jpg");
+      expect(activities[0].id).toBe(1);  // El ID debe ser 1 porque es la primera actividad
+  });
+
+  it("debería eliminar una actividad por su ID", function() {
+      repository.createActivity("Actividad 1", "Descripción 1", "imagen1.jpg");
+      repository.createActivity("Actividad 2", "Descripción 2", "imagen2.jpg");
+
+      repository.deleteActivityById(1);
+
+      const activities = repository.getAllActivities();
+      expect(activities.length).toBe(1);
+      expect(activities[0].id).toBe(2);  // Solo debe quedar la actividad con ID 2
+  });
+
+  it("debería editar una actividad correctamente", function() {
+      repository.createActivity("Actividad 1", "Descripción 1", "imagen1.jpg");
+      
+      repository.editActivity(1, "Actividad Editada", "Descripción Editada", "imagenEditada.jpg");
+
+      const activity = repository.getAllActivities()[0];
+      expect(activity.title).toBe("Actividad Editada");
+      expect(activity.description).toBe("Descripción Editada");
+      expect(activity.urlImage).toBe("imagenEditada.jpg");
+  });
+
+  it("debería manejar la edición de una actividad no existente", function() {
+      repository.createActivity("Actividad 1", "Descripción 1", "imagen1.jpg");
+
+      const result = repository.editActivity(999, "Nueva", "Descripción Nueva", "imagenNueva.jpg");
+
+      const activities = repository.getAllActivities();
+      expect(activities.length).toBe(1);
+      expect(activities[0].title).toBe("Actividad 1"); // No se debería haber editado
+  });
+});
